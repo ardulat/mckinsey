@@ -79,7 +79,8 @@ public class Main {
         }
     }
 
-    // Time complexity will be O(N^maxStops) in the worst case
+    // Time complexity: O(N^maxStops) in the worst case
+    // Note: We can reduce it by using Dynamic Programming
     public static int getTripsCountMax(char source, char target, int currentStops, int maxStops) {
         // Base cases
         if (currentStops > maxStops)
@@ -100,7 +101,8 @@ public class Main {
         return count;
     }
 
-    // Time complexity will be O(N^exactStops) in the worst case
+    // Time complexity: O(N^exactStops) in the worst case
+    // Note: We can reduce it by using Dynamic Programming
     public static int getTripsCountExact(char source, char target, int exactStops) {
         // Base cases
         if (exactStops == 0 && source == target)
