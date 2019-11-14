@@ -42,6 +42,12 @@ public class Main {
         System.out.print("The distance of the route " + route5 + ": ");
         getDistance(route5);
 
+        System.out.println("The number of trips starting at C and ending at C with a maximum of 3 stops: " +
+                getTripsCountMax('C', 'C', 0, 3));
+
+        System.out.println("The number of trips starting at A and ending at C with exactly 4 stops: " +
+                getTripsCountExact('A', 'C', 4));
+
     }
 
     public static void getDistance(String route) {
@@ -71,5 +77,41 @@ public class Main {
                 return;
             }
         }
+    }
+
+    public static int getTripsCountMax(char source, char target, int currentStops, int maxStops) {
+        // Base cases
+        if (currentStops > maxStops)
+            return 0;
+        if (source == target && currentStops != 0) // a cycle already exists initially. thus, remove one (initial)
+            return 1;
+
+        // TODO: add check for bad input with no such nodes
+        Map<Character, Integer> adjacent = graph.get(source); // assuming that source exists in input
+
+        int count = 0;
+
+        for (char adj : adjacent.keySet())
+            count += getTripsCountMax(adj, target, currentStops+1, maxStops);
+
+        return count;
+    }
+
+    public static int getTripsCountExact(char source, char target, int exactStops) {
+        // Base cases
+        if (exactStops == 0 && source == target)
+            return 1;
+        if (exactStops <= 0) // when exactStops = 0, it means source != target
+            return 0;
+
+        // TODO: add check for bad input with no such nodes
+        Map<Character, Integer> adjacent = graph.get(source); // assuming that source exists in input
+
+        int count = 0;
+
+        for (char adj : adjacent.keySet())
+            count += getTripsCountExact(adj, target, exactStops-1);
+
+        return count;
     }
 }
