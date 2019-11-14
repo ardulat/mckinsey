@@ -79,17 +79,18 @@ public class Main {
         }
     }
 
+    // Time complexity will be O(N^maxStops) in the worst case
     public static int getTripsCountMax(char source, char target, int currentStops, int maxStops) {
         // Base cases
         if (currentStops > maxStops)
             return 0;
-        if (source == target && currentStops != 0) // a cycle already exists initially. thus, remove one (initial)
-            return 1;
+
+        int count = 0;
+        if (source == target && currentStops != 0)
+            count++;
 
         // TODO: add check for bad input with no such nodes
         Map<Character, Integer> adjacent = graph.get(source); // assuming that source exists in input
-
-        int count = 0;
 
         for (char adj : adjacent.keySet())
             count += getTripsCountMax(adj, target, currentStops+1, maxStops);
@@ -97,6 +98,7 @@ public class Main {
         return count;
     }
 
+    // Time complexity will be O(N^exactStops) in the worst case
     public static int getTripsCountExact(char source, char target, int exactStops) {
         // Base cases
         if (exactStops == 0 && source == target)
