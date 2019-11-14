@@ -89,8 +89,10 @@ public class Main {
         if (source == target && currentStops != 0)
             count++;
 
-        // TODO: add check for bad input with no such nodes
-        Map<Character, Integer> adjacent = graph.get(source); // assuming that source exists in input
+        if (!graph.containsKey(source))
+            return 0;
+
+        Map<Character, Integer> adjacent = graph.get(source);
 
         for (char adj : adjacent.keySet())
             count += getTripsCountMax(adj, target, currentStops+1, maxStops);
@@ -106,7 +108,9 @@ public class Main {
         if (exactStops <= 0) // when exactStops = 0, it means source != target
             return 0;
 
-        // TODO: add check for bad input with no such nodes
+        if (!graph.containsKey(source))
+            return 0;
+
         Map<Character, Integer> adjacent = graph.get(source); // assuming that source exists in input
 
         int count = 0;
