@@ -72,10 +72,8 @@ public class Main {
             if (adj.containsKey(next)) {
                 dist += adj.get(next);
                 getDistanceUtil(route, pos, dist);
-            } else {
+            } else
                 System.out.println("NO SUCH ROUTE!");
-                return;
-            }
         }
     }
 
