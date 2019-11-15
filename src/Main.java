@@ -12,9 +12,9 @@ public class Main {
                 "CD8", "DC8", "DE6", "AD5", "CE2", "EB3", "AE7"));
 
         for (String i : input) {
-            char src = i.charAt(0);
-            char trg = i.charAt(1);
-            int w = Character.getNumericValue(i.charAt(2));
+            char src = i.charAt(0); // one character label
+            char trg = i.charAt(1); // one character label
+            int w = Character.getNumericValue(i.charAt(2)); // weights are in the range [0, 9]
 
             graph.putIfAbsent(src, new HashMap<>());
             graph.get(src).put(trg, w);
@@ -47,6 +47,11 @@ public class Main {
 
         System.out.println("The number of trips starting at A and ending at C with exactly 4 stops: " +
                 getTripsCountExact('A', 'C', 4));
+
+        System.out.println("The length of the shortest route (in terms of distance to travel) from A to C: " +
+                getShortestPath('A', 'C'));
+
+//        System.out.println();
 
     }
 
@@ -119,5 +124,50 @@ public class Main {
             count += getTripsCountExact(adj, target, exactStops-1);
 
         return count;
+    }
+
+    public static char minDistance(Map<Character, Boolean> visited, Map<Character, Integer> distances) {
+        char res = 'A'; // random value that will be updated according to Dijkstra
+        int dist = Integer.MAX_VALUE;
+
+        for (char node : graph.keySet()) {
+            if (visited.get(node) == false && distances.get(node) < dist)
+                res = node;
+        }
+
+        return res;
+    }
+
+    // Dijkstra's algorithm for computing shortest path from source to all vertices
+    public static int getShortestPath(char source, char target) {
+        Map<Character, Boolean> visited = new HashMap<>();
+        Map<Character, Integer> distances = new HashMap<>();
+
+        // fill hashmaps with initial values
+        for (char node : graph.keySet()) {
+            visited.put(node, false);
+            distances.put(node, Integer.MAX_VALUE);
+        }
+
+        // set source node's distance to itself as zero
+        distances.put(source, 0);
+
+        for (int i = 0; i < graph.size(); i++) { // while all are not visited
+            char w = minDistance(visited, distances);
+
+            visited.put(w, true); // update
+
+            Map<Character, Integer> adjacent = graph.get(w);
+
+            for (char adj : adjacent.keySet()) {
+                // Dijkstra's greedy criterion
+                if (distances.get(w) + adjacent.get(adj) < distances.get(adj))
+                    distances.put(adj, distances.get(w) + adjacent.get(adj));
+            }
+
+            // if w == target, we can break the loop
+        }
+
+        return distances.get(target);
     }
 }
