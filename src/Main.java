@@ -8,10 +8,15 @@ public class Main {
 
         graph = new HashMap<>();
 
-        List<String> input = new ArrayList<>(Arrays.asList("AB5", "BC4",
-                "CD8", "DC8", "DE6", "AD5", "CE2", "EB3", "AE7"));
+        // Sample input: AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7
+        System.out.println("Please provide the input as in sample testcase (e.g. \"AB5, BC4, CD8\"): ");
+        Scanner reader = new Scanner(System.in);
+
+        String inputString = reader.nextLine();
+        List<String> input = new ArrayList<>(Arrays.asList(inputString.split(", ")));
 
         for (String i : input) {
+
             char src = i.charAt(0); // one character label
             char trg = i.charAt(1); // one character label
             int w = Character.getNumericValue(i.charAt(2)); // weights are in the range [0, 9]
@@ -19,8 +24,6 @@ public class Main {
             graph.putIfAbsent(src, new HashMap<>());
             graph.get(src).put(trg, w);
         }
-
-        System.out.println(graph.toString());
 
         System.out.print("OUTPUT #1: ");
         String route1 = "A-B-C";
@@ -153,6 +156,7 @@ public class Main {
             distances.put(node, Integer.MAX_VALUE);
         }
 
+        // initial setting for dijkstra's shortest path algorithm
         Map<Character, Integer> sourceAdjacent = graph.get(source);
         for (char node : sourceAdjacent.keySet()) {
             distances.put(node, sourceAdjacent.get(node));
@@ -174,10 +178,6 @@ public class Main {
                 if (distW + distAdj < distances.get(adj))
                     distances.put(adj, distances.get(w) + adjacent.get(adj));
             }
-
-            // no need to look further
-            if (w == target)
-                break;
         }
 
         return distances.get(target);
