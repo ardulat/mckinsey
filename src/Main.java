@@ -22,39 +22,39 @@ public class Main {
 
         System.out.println(graph.toString());
 
+        System.out.print("OUTPUT #1: ");
         String route1 = "A-B-C";
-        System.out.print("The distance of the route " + route1 + ": ");
         getDistance(route1);
 
+        System.out.print("OUTPUT #2: ");
         String route2 = "A-D";
-        System.out.print("The distance of the route " + route2 + ": ");
         getDistance(route2);
 
+        System.out.print("OUTPUT #3: ");
         String route3 = "A-D-C";
-        System.out.print("The distance of the route " + route3 + ": ");
         getDistance(route3);
 
+        System.out.print("OUTPUT #4: ");
         String route4 = "A-E-B-C-D";
-        System.out.print("The distance of the route " + route4 + ": ");
         getDistance(route4);
 
+        System.out.print("OUTPUT #5: ");
         String route5 = "A-E-D";
-        System.out.print("The distance of the route " + route5 + ": ");
         getDistance(route5);
 
-        System.out.println("The number of trips starting at C and ending at C with a maximum of 3 stops: " +
+        System.out.println("OUTPUT #6: " +
                 getTripsCountMax('C', 'C', 0, 3));
 
-        System.out.println("The number of trips starting at A and ending at C with exactly 4 stops: " +
+        System.out.println("OUTPUT #7: " +
                 getTripsCountExact('A', 'C', 4));
 
-        System.out.println("The length of the shortest route (in terms of distance to travel) from A to C: " +
+        System.out.println("OUTPUT #8: " +
                 getShortestPath('A', 'C'));
 
-        System.out.println("The length of the shortest route (in terms of distance to travel) from B to B: " +
+        System.out.println("OUTPUT #9: " +
                 getShortestPath('B', 'B'));
 
-        System.out.println("The number of different routes from C to C with a distance of less than 30: " +
+        System.out.println("OUTPUT #10: " +
                 getRoutesCountMax('C', 'C', 0, 30));
 
     }
@@ -183,14 +183,13 @@ public class Main {
         return distances.get(target);
     }
 
-    // TODO: edit notes
-    // Time complexity: O(N^maxStops) in the worst case
+    // Time complexity: O(N^(maxDistance/minOfAllWeights)) in the worst case
     // Note: We can reduce it by using Dynamic Programming
     public static int getRoutesCountMax(char source, char target, int currentDistance, int maxDistance) {
         // Base cases
         if (currentDistance >= maxDistance) // strictly less than (by definition)
             return 0;
-        System.out.println("source = " + source + " currentDistance = " + currentDistance);
+
         int count = 0;
         if (source == target && currentDistance != 0)
             count++;
