@@ -51,7 +51,11 @@ public class Main {
         System.out.println("The length of the shortest route (in terms of distance to travel) from A to C: " +
                 getShortestPath('A', 'C'));
 
-//        System.out.println();
+        System.out.println("The length of the shortest route (in terms of distance to travel) from B to B: " +
+                getShortestPath('B', 'B'));
+
+        System.out.println("The number of different routes from C to C with a distance of less than 30: " +
+                getRoutesCountMax('C', 'C', 0, 30));
 
     }
 
@@ -149,8 +153,10 @@ public class Main {
             distances.put(node, Integer.MAX_VALUE);
         }
 
-        // set source node's distance to itself as zero
-        distances.put(source, 0);
+        Map<Character, Integer> sourceAdjacent = graph.get(source);
+        for (char node : sourceAdjacent.keySet()) {
+            distances.put(node, sourceAdjacent.get(node));
+        }
 
         for (int i = 0; i < graph.size(); i++) { // while all are not visited
             char w = minDistance(visited, distances);
@@ -160,14 +166,43 @@ public class Main {
             Map<Character, Integer> adjacent = graph.get(w);
 
             for (char adj : adjacent.keySet()) {
+                // for sums that are greater than MAX_INT, integer overflows (results in negative value)
+                long distW = distances.get(w);
+                long distAdj = adjacent.get(adj);
+
                 // Dijkstra's greedy criterion
-                if (distances.get(w) + adjacent.get(adj) < distances.get(adj))
+                if (distW + distAdj < distances.get(adj))
                     distances.put(adj, distances.get(w) + adjacent.get(adj));
             }
 
-            // if w == target, we can break the loop
+            // no need to look further
+            if (w == target)
+                break;
         }
 
         return distances.get(target);
+    }
+
+    // TODO: edit notes
+    // Time complexity: O(N^maxStops) in the worst case
+    // Note: We can reduce it by using Dynamic Programming
+    public static int getRoutesCountMax(char source, char target, int currentDistance, int maxDistance) {
+        // Base cases
+        if (currentDistance >= maxDistance) // strictly less than (by definition)
+            return 0;
+        System.out.println("source = " + source + " currentDistance = " + currentDistance);
+        int count = 0;
+        if (source == target && currentDistance != 0)
+            count++;
+
+        if (!graph.containsKey(source))
+            return 0;
+
+        Map<Character, Integer> adjacent = graph.get(source);
+
+        for (char adj : adjacent.keySet())
+            count += getRoutesCountMax(adj, target, currentDistance + adjacent.get(adj), maxDistance);
+
+        return count;
     }
 }
