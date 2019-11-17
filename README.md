@@ -33,15 +33,15 @@ The tasks use the same approach and thus, I decided to describe it in this order
 
 Again, I decided to go as simple as I can. But the answer to the well-known question "Could we do better?" is yes, we can by using Dynamic Programming (DP). DP will be used here to memoize different routes that we already tried and in case we come there again, we will simply use the previously computed answer (yes, there is such path or no, there is not). DP will ensure that we do not duplicate our computations that can be well represented in a recursion tree.
 
-**Time complexity**: `O(N<sup>k</sup>)` where `k` - number of maximum/exact stops or maximum distance/minimum of all weights in the worst case
-**Space complexity**: `O(N<sup>k</sup>)`
+**Time complexity**: `O(N^k)` where `k` - number of maximum/exact stops or maximum distance/minimum of all weights in the worst case
+**Space complexity**: `O(N^k)`
 
 ## Tasks 8-9
 There is a number of different algorithms for solving the shortest path problem (mostly using the Greedy approach). But once again, I decided to go as simple as I can and implemented Dijkstra's shortest path algorithm that computes the shortest path distance from the source to all nodes. It is important to note that Dijkstra's algorithm will work only on the positive weights of edges in the graph (otherwise, we would implement Bellman-Ford or Floyd-Warshall algorithms). So, given the source vertex and the target vertex, we will find the shortest path distance between them.
 
 One modification needed for Dijkstra's shortest path algorithm for this problem is the starting setup for initiating the algorithms. Classically, Dijkstra's algorithm starts with initiating the shortest distance to the source itself as zero and starts the loop to compute all distances (initially set to +INF or `MAX_INT` in C++ syntax). As we see from the 9-th task, we can't do that (because it will output the wrong result) and thus, I decided to modify the initial setting as computing the distance to adjacent nodes to the source node (simply taking their weights) and furthermore computing the rest of distances.
 
-**Time complexity**: `O(V<sup>2</sup>)` because it is the naive implementation of Dijkstra's algorithms without any usage of heap/priority queue and the inner loop will find the shortest distance in `O(N)` time
+**Time complexity**: `O(V^2)` because it is the naive implementation of Dijkstra's algorithms without any usage of heap/priority queue and the inner loop will find the shortest distance in `O(N)` time
 **Space complexity**: `O(V)` dedicated to `distances` and `visited` hashmaps (which is in fact `O(26)` because we can have a maximum of 26 uppercase letters indicating the labels of the graph nodes)
 
 ## Final thoughts
