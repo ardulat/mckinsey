@@ -62,10 +62,27 @@ public class Main {
 
     }
 
+    
+    /**
+     * Main function to get the total distance of the route.
+     * The output is printed to the console as a part of the function call.
+     * @param route Route represented as a String to follow in the graph
+     */
+
     public static void getDistance(String route) {
 
         getDistanceUtil(route,0, 0);
     }
+
+
+    /**
+     * Recursive utility function that is being used by main function to get the
+     * total distance of the given route. The output is printed to the console as
+     * a part of the function call.
+     * @param route Route represented as a String to follow in the graph
+     * @param pos Position pointer indicating current graph node label to be traversed
+     * @param dist Distance counter to be printed if the path exists
+     */
 
     public static void getDistanceUtil(String route, int pos, int dist) {
         char src = route.charAt(pos++);
@@ -89,8 +106,17 @@ public class Main {
         }
     }
 
-    // Time complexity: O(N^maxStops) in the worst case
-    // Note: We can reduce it by using Dynamic Programming
+
+    /**
+     * Recursive function following backtracking approach to get number of trips with
+     * maximum number of stops. The function stops/backtracks when the constraint is not satisfied.
+     * @param source Source graph node to start the route
+     * @param target Target graph node to end the route
+     * @param currentStops Counter for tracking number of stops covered so far
+     * @param maxStops Maximum number of stops allowed by the algorithm
+     * @return Number of trips in the graph that satisfy the requirement
+     */
+
     public static int getTripsCountMax(char source, char target, int currentStops, int maxStops) {
         // Base cases
         if (currentStops > maxStops)
@@ -111,8 +137,16 @@ public class Main {
         return count;
     }
 
-    // Time complexity: O(N^exactStops) in the worst case
-    // Note: We can reduce it by using Dynamic Programming
+
+    /**
+     * Recursive function following backtracking approach to get number of trips with
+     * exact number of stops. The function halts when the constraint is not satisfied.
+     * @param source Source graph node to start the route
+     * @param target Target graph node to end the route
+     * @param exactStops Exact number of stops being targeted by the algorithm
+     * @return Number of trips that satisfy the requirement
+     */
+
     public static int getTripsCountExact(char source, char target, int exactStops) {
         // Base cases
         if (exactStops == 0 && source == target)
@@ -133,6 +167,17 @@ public class Main {
         return count;
     }
 
+
+    /**
+     * Simple utility function used by Dijkstra's shortest path algorithm to find
+     * next node to visited based on the shortest unvisited distance node in linear time.
+     * Can be optimized to find the next node in logarithmic time using heap data structure.
+     * @param visited Hashmap of visited/unvisited nodes to track the nodes the algorithm
+     *                covered so far
+     * @param distances Hashmap of distances to the nodes from the source (initially set to +INF)
+     * @return Graph node label to visit next in Dijkstra's algorithm
+     */
+
     public static char minDistance(Map<Character, Boolean> visited, Map<Character, Integer> distances) {
         char res = 'A'; // random value that will be updated according to Dijkstra
         int dist = Integer.MAX_VALUE;
@@ -145,7 +190,16 @@ public class Main {
         return res;
     }
 
-    // Dijkstra's algorithm for computing shortest path from source to all vertices
+
+    /**
+     * Dijkstra's algorithm for finding shortest path distance from source node to target node
+     * of the graph. The algorithm finds all distances from source node to the rest nodes of
+     * the graph (initially set to +INF).
+     * @param source Source node from where to start shortest path
+     * @param target Target node to which find the shortest path distance
+     * @return Shortest path distance from source to target node
+     */
+
     public static int getShortestPath(char source, char target) {
         Map<Character, Boolean> visited = new HashMap<>();
         Map<Character, Integer> distances = new HashMap<>();
@@ -183,8 +237,17 @@ public class Main {
         return distances.get(target);
     }
 
-    // Time complexity: O(N^(maxDistance/minOfAllWeights)) in the worst case
-    // Note: We can reduce it by using Dynamic Programming
+
+    /**
+     * Recursive function following backtracking approach to get number of trips with
+     * maximum distance along the path. The function halts when the constraint is not satisfied.
+     * @param source Source graph node to start the route
+     * @param target Target graph node to end the route
+     * @param currentDistance Counter for tracking the distance covered so far
+     * @param maxDistance Maximum distance allowed by the algorithm
+     * @return Number of trips in the graph that satisfy the requirement
+     */
+
     public static int getRoutesCountMax(char source, char target, int currentDistance, int maxDistance) {
         // Base cases
         if (currentDistance >= maxDistance) // strictly less than (by definition)
