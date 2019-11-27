@@ -2,8 +2,6 @@
 
 This is a repository dedicated to the McKinsey Digital Lab programming task.
 
-## Table of contents
-
 ## Getting started
 
 In this problem, I decided to go as simple as I can. Right from the beginning, it was obvious that this is a graph problem. The graph in the problem is a directed weighted graph that can have cycles.
