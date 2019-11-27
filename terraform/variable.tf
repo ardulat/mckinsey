@@ -1,6 +1,6 @@
 variable "profile" {
   description = "AWS Profile"
-  default = "anuar"
+  default = "default"
 }
 
 variable "region" {
@@ -9,7 +9,7 @@ variable "region" {
 
 variable "key" {
   description = "Enter Key name"
-  default = "anuar-key"
+  default = "anuar"
 }
 
 variable "sub_ids" {
@@ -17,7 +17,7 @@ variable "sub_ids" {
 }
 
 variable "instance-ami" {
-  default = "ami-0f686bcf073842e84" # AMI of Mumbai region
+  default = "ami-082bb518441d3954c"
 }
 
 variable "instance_type" {

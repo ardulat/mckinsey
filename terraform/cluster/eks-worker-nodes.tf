@@ -9,7 +9,7 @@
 
 #IAM Role
 resource "aws_iam_role" "worker-node-role" {
-  name = "worker-nodes-role-labs"
+  name = "worker-nodes-role-anuar"
 
   assume_role_policy = <<POLICY
 {
@@ -28,7 +28,7 @@ POLICY
 }
 
 resource "aws_iam_policy" "eks-tagging" {
-  name        = "production_resource_tagging_for_eks_labs"
+  name        = "production_resource_tagging_for_eks_anuar"
   path        = "/"
   description = "resource_tagging_for_eks"
 
@@ -79,7 +79,7 @@ resource "aws_iam_role_policy_attachment" "worker-node-resource_tagging_for_eks"
 }
 
 resource "aws_iam_instance_profile" "worker-node" {
-  name = "eks-worker-node-labs"
+  name = "eks-worker-node-anuar"
   role = "${aws_iam_role.worker-node-role.name}"
 }
 

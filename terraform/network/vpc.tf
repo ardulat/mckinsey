@@ -120,7 +120,7 @@ resource "aws_nat_gateway" "nat-gw" {
   allocation_id = "${aws_eip.eip.id}"
   subnet_id     = "${element(aws_subnet.master_subnet.*.id, 0)}"
 
-  tags {
+  tags = {
     Name = "Nat_gateway"
   }
 }
@@ -135,7 +135,7 @@ resource "aws_route_table" "rt_private" {
     nat_gateway_id = "${aws_nat_gateway.nat-gw.id}"
   }
 
-  tags {
+  tags = {
     Name = "Private_route_table"
   }
 }

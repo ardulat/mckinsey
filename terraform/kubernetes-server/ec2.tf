@@ -4,8 +4,8 @@ resource "aws_security_group" "kubernetes-server-instance-sg" {
   vpc_id      = "${var.vpc_id}"
 
   ingress {
-    from_port   = 8080
-    to_port     = 8080
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -17,7 +17,7 @@ resource "aws_security_group" "kubernetes-server-instance-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name = "kubectl_server-SG"
   }
 }
@@ -35,7 +35,7 @@ resource "aws_instance" "kubernetes-server" {
     delete_on_termination = "true"
   }
 
-  tags {
+  tags = {
     Name = "${var.server-name}"
   }
 }
