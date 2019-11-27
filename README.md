@@ -45,7 +45,7 @@ One modification needed for Dijkstra's shortest path algorithm for this problem 
 **Space complexity**: `O(V)` dedicated to `distances` and `visited` hashmaps (which is in fact `O(26)` because we can have a maximum of 26 uppercase letters indicating the labels of the graph nodes)
 
 ## Bonus
-It was a great challenge to configure AWS EKS using Terraform. Starting with zero knowledge of what Kubernetes is, I have dedicated my time to learn it and further dived deep into Terraform configurations. I wish I had more time to understand how infrastructure as code works but for this getting started a task I decided to follow the tutorial publish by Tensult: [Guide To Setup Kubernetes In AWS EKS Using Terraform And Deploy Sample Applications] (https://medium.com/tensult/guide-to-setup-kubernetes-in-aws-eks-using-terraform-and-deploy-sample-applications-ee8c45e425ca).
+It was a great challenge to configure AWS EKS using Terraform. Starting with zero knowledge of what Kubernetes is, I have dedicated my time to learn it and further dived deep into Terraform configurations. I wish I had more time to understand how infrastructure as code works but for this getting started a task I decided to follow the tutorial publish by Tensult: [Guide To Setup Kubernetes In AWS EKS Using Terraform And Deploy Sample Applications](https://medium.com/tensult/guide-to-setup-kubernetes-in-aws-eks-using-terraform-and-deploy-sample-applications-ee8c45e425ca).
 
 ## Final thoughts
 
